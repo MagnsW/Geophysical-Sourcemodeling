@@ -1,0 +1,13 @@
+#!/bin/bash
+python makesubstit_alt2.py 4135H__040_2000_080_alt2
+python makesubstit_alt2.py 4135H__040_2000_100_alt2
+python makesubstit_alt2.py 4135H__050_2000_080_alt2
+python makesubstit_alt2.py 4135H__050_2000_100_alt2
+python makesubstit_alt2.py 4135H__060_2000_080_alt2
+python makesubstit_alt2.py 4135H__060_2000_100_alt2
+python makesubstit_alt2.py 4135H__070_2000_080_alt2
+python makesubstit_alt2.py 4135H__070_2000_100_alt2
+python makesubstit_alt2.py 4135H__080_2000_080_alt2
+python makesubstit_alt2.py 4135H__080_2000_100_alt2
+python makesubstit_alt2.py 4135H__090_2000_080_alt2
+python makesubstit_alt2.py 4135H__090_2000_100_alt2
