@@ -33,6 +33,7 @@
 #08/02/2019: (MW): Updated to work with N280 and source kernel 1 or 2
 #20/03/2019: (MW): 3260 subarray 1 and 2 swapped. Affects only the dropoutmatrix remodeling.
 #16/08/2019: (MW): 3280 array added with subarray definition
+#18/10/2019: (MW): Screendump of dropoutmatrix changed to 2600x1500
 
 #Note that for this version, where parameters from an XML file is parsed into perl variables, you need to have XML::Simple installed.(To install: "perl -MCPAN -e shell" then "install XML::Simple")
 
@@ -1103,8 +1104,8 @@ print OUTPUT ('<!DOCTYPE PGS_N2_JOB>
 <Page Expanded="yes" Enabled="yes" ID="ScreenDump">
 <Parameter ID="ScreenDumpFormat" state="default">Png</Parameter>
 <ParameterGroup ID="ScreenDumpSize">
-<Parameter ID="ScreenDumpSizeX" state="default">1200</Parameter>
-<Parameter ID="ScreenDumpSizeY" state="default">900</Parameter>
+<Parameter ID="ScreenDumpSizeX" state="default">2600</Parameter>
+<Parameter ID="ScreenDumpSizeY" state="default">1500</Parameter>
 </ParameterGroup>
 <Parameter ID="ScreenDumpOrientation" state="changed">Yes</Parameter>
 <ParameterGroup ID="ScreenDumpExternalOutput">
@@ -2000,8 +2001,8 @@ In the Edit Subarray module, use the tab AirgunSubarrayParameters to make the ed
 <Page Enabled="yes" ID="ScreenDump" Expanded="yes">
 <Parameter state="default" ID="ScreenDumpFormat">Png</Parameter>
 <ParameterGroup ID="ScreenDumpSize">
-<Parameter state="default" ID="ScreenDumpSizeX">1200</Parameter>
-<Parameter state="default" ID="ScreenDumpSizeY">900</Parameter>
+<Parameter state="default" ID="ScreenDumpSizeX">2600</Parameter>
+<Parameter state="default" ID="ScreenDumpSizeY">1500</Parameter>
 </ParameterGroup>
 <Parameter state="changed" ID="ScreenDumpOrientation">Yes</Parameter>
 <ParameterGroup ID="ScreenDumpExternalOutput">
