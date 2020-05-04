@@ -34,6 +34,8 @@
 #20/03/2019: (MW): 3260 subarray 1 and 2 swapped. Affects only the dropoutmatrix remodeling.
 #16/08/2019: (MW): 3280 array added with subarray definition
 #18/10/2019: (MW): Screendump of dropoutmatrix changed to 2600x1500
+#30/10/2019: (MW): Minor bug fixes related to the dropout remodeling job
+#31/03/2020: (MW): Hard coded in that nucDir is set to /pgsdev/Nucleus+GS/latest/
 
 #Note that for this version, where parameters from an XML file is parsed into perl variables, you need to have XML::Simple installed.(To install: "perl -MCPAN -e shell" then "install XML::Simple")
 
@@ -47,7 +49,8 @@ use JSON;
 ##########-------------THESE PATHS NEEDS TO BE ADJUSTED TO THE LOCATION/MACHINE WHERE THE SCRIPT IS RUN----------------------#######################
 $NIIdir = '/research/sourcemod/NIIProjects/'; ##<<<<---------------------The directory where new source modeling projects will be created
 $sourcemoddir = '/research/sourcemod/NIIProjects/Sourcemod/'; ##<<<<-----The directory for the Sourcemod project. (This project is used for running the create-project job when the new project is created)
-$nucDir = '/data/Nucleus/release/com/pgs/research/NII'; ##<<<<-----The NUCLEUS_DIR path. (The part that comes before /usr/bin/Nucleus+.sh in the Nucleus+ alias) 
+$nucDir = '/pgsdev/Nucleus+GS/latest';
+#$nucDir = '/data/Nucleus/release/com/pgs/research/NII'; ##<<<<-----The NUCLEUS_DIR path. (The part that comes before /usr/bin/Nucleus+.sh in the Nucleus+ alias) 
 #By changing the nucDir path, you can also change which version of Nucleus/masomo is launched. 
 ####################################################################################################################################################
 ####################################################################################################################################################
@@ -1104,8 +1107,8 @@ print OUTPUT ('<!DOCTYPE PGS_N2_JOB>
 <Page Expanded="yes" Enabled="yes" ID="ScreenDump">
 <Parameter ID="ScreenDumpFormat" state="default">Png</Parameter>
 <ParameterGroup ID="ScreenDumpSize">
-<Parameter ID="ScreenDumpSizeX" state="default">2600</Parameter>
-<Parameter ID="ScreenDumpSizeY" state="default">1500</Parameter>
+<Parameter ID="ScreenDumpSizeX" state="changed">2600</Parameter>
+<Parameter ID="ScreenDumpSizeY" state="changed">1500</Parameter>
 </ParameterGroup>
 <Parameter ID="ScreenDumpOrientation" state="changed">Yes</Parameter>
 <ParameterGroup ID="ScreenDumpExternalOutput">
@@ -1634,7 +1637,7 @@ In the Edit Subarray module, use the tab AirgunSubarrayParameters to make the ed
 <Entity name="Project">
 <Key state="changed" name="name">',$project,'</Key>
 <Entity name="SubArray">
-<Key state="changed" name="name">',$subarray1,'_sub3</Key>
+<Key state="changed" name="name">',$subarray1,'_sub1</Key>
 </Entity>
 </Entity>
 </Parameter>
@@ -1664,6 +1667,74 @@ In the Edit Subarray module, use the tab AirgunSubarrayParameters to make the ed
 </Parameter>
 <Parameter state="default" ID="SubArrayNumberOfGuns">12</Parameter>
 <Parameter state="default" ID="SubArrayMainType">Airguns</Parameter>
+</Page>
+</Page>
+<Page Expanded="no" ID="DataMgrFullArray" Enabled="yes">
+<Parameter ID="FullArraySpec">
+<Entity name="Project">
+<Key name="name" state="changed">',$project,'</Key>
+<Entity name="FullArray">
+<Key name="name" state="changed">',$arrayname,'_subst</Key>
+</Entity>
+</Entity>
+</Parameter>
+<Page Expanded="yes" ID="FullArrayEdit" Enabled="yes">
+<Parameter ID="FullArraySpec">
+<Entity name="Project">
+<Key name="name" state="changed">',$project,'</Key>
+<Entity name="FullArray">
+<Key name="name" state="changed">',$arrayname,'_subst</Key>
+</Entity>
+</Entity>
+</Parameter>
+<Parameter ID="FullArrayNumberOfSubarrays" state="default">',$numofsubarrays,'</Parameter>
+<Parameter ID="FullArray_Separator_eSourceSequence" state="changed"></Parameter>
+<Parameter ID="FullArray_FiringWindow" state="default">0</Parameter>
+<Parameter ID="FullArray_RandomizationWindow" state="default">0</Parameter>
+<Page Expanded="yes" ID="FullArray_Subarrays" Enabled="yes">
+<ParameterGroup ID="SubarrayParameters">
+<Parameter ID="FullArraySubarrayLabel" state="default">1</Parameter>
+<Parameter ID="FullArraySubarrayName">
+<Entity name="Project">
+<Key name="name" state="default">',$project,'</Key>
+<Entity name="SubArray">
+<Key name="name" state="default">',$subarray1,'_sub1</Key>
+</Entity>
+</Entity>
+</Parameter>
+<Parameter ID="FullArraySubarrayX" state="default">0</Parameter>
+<Parameter ID="FullArraySubarrayY" state="default">8</Parameter>
+<Parameter ID="FullArraySubarrayZ" state="default">4</Parameter>
+</ParameterGroup>
+<ParameterGroup ID="SubarrayParameters">
+<Parameter ID="FullArraySubarrayLabel" state="default">2</Parameter>
+<Parameter ID="FullArraySubarrayName">
+<Entity name="Project">
+<Key name="name" state="default">',$project,'</Key>
+<Entity name="SubArray">
+<Key name="name" state="default">',$subarray2,'_sub2</Key>
+</Entity>
+</Entity>
+</Parameter>
+<Parameter ID="FullArraySubarrayX" state="default">0</Parameter>
+<Parameter ID="FullArraySubarrayY" state="default">0</Parameter>
+<Parameter ID="FullArraySubarrayZ" state="default">4</Parameter>
+</ParameterGroup>
+<ParameterGroup ID="SubarrayParameters">
+<Parameter ID="FullArraySubarrayLabel" state="default">3</Parameter>
+<Parameter ID="FullArraySubarrayName">
+<Entity name="Project">
+<Key name="name" state="default">',$project,'</Key>
+<Entity name="SubArray">
+<Key name="name" state="default">',$subarray3,'_sub3</Key>
+</Entity>
+</Entity>
+</Parameter>
+<Parameter ID="FullArraySubarrayX" state="default">0</Parameter>
+<Parameter ID="FullArraySubarrayY" state="default">-8</Parameter>
+<Parameter ID="FullArraySubarrayZ" state="default">4</Parameter>
+</ParameterGroup>
+</Page>
 </Page>
 </Page>
 <Page Enabled="yes" Description="Plotting edited full array" ID="Masomo_Plotting" Expanded="no">
@@ -2001,8 +2072,8 @@ In the Edit Subarray module, use the tab AirgunSubarrayParameters to make the ed
 <Page Enabled="yes" ID="ScreenDump" Expanded="yes">
 <Parameter state="default" ID="ScreenDumpFormat">Png</Parameter>
 <ParameterGroup ID="ScreenDumpSize">
-<Parameter state="default" ID="ScreenDumpSizeX">2600</Parameter>
-<Parameter state="default" ID="ScreenDumpSizeY">1500</Parameter>
+<Parameter state="changed" ID="ScreenDumpSizeX">2600</Parameter>
+<Parameter state="changed" ID="ScreenDumpSizeY">1500</Parameter>
 </ParameterGroup>
 <Parameter state="changed" ID="ScreenDumpOrientation">Yes</Parameter>
 <ParameterGroup ID="ScreenDumpExternalOutput">
@@ -5392,15 +5463,18 @@ close(OUTPUT);
 close(INPUT);
 
 #Set nucDir variable from NUCLEUS_DIR environment variable or from hard coded directory.
-if (defined $ENV{'NUCLEUS_DIR'})
-{
-$nucDir = $ENV{'NUCLEUS_DIR'};
-}
-else
-{
-#Might have to change it according to the location (Oslo, London, Houston, ...) 
-#$nucDir = '/data/Nucleus/release_2.6.0/com/pgs/research/NII';
-}
+##Remove below if ok
+#if (defined $ENV{'NUCLEUS_DIR'})
+#{
+#$nucDir = $ENV{'NUCLEUS_DIR'};
+#}
+#else
+#{
+##Might have to change it according to the location (Oslo, London, Houston, ...) 
+##$nucDir = '/data/Nucleus/release_2.6.0/com/pgs/research/NII';
+#}
+##remove above if ok
+#$nucDir = '/pgsdev/Nucleus+GS/latest';
 
 print("Verify that NUCLEUS_DIR is set to the correct N+ release path. \n");
 print("NUCLEUS_DIR = $nucDir \n");
@@ -5421,7 +5495,8 @@ if (($execute eq "y") && ($autocreateproj eq "y")){
     else
     {
         #system("cat", "nucleus.log");
-	system("mkdir", $jobdir);
+	#system("mkdir", $jobdir); Commented out for Manuel bug
+	mkdir $jobdir
     } 
 }
 
