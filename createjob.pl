@@ -59,7 +59,7 @@ $xml = new XML::Simple (ForceArray => 1, suppressempty => '');
 
 #$inputfile = $ARGV[0];
 $id =  $ARGV[0];
-my @args =  ("curl", "-k", "--ntlm", "-u", "ONSHORE/F_HOU-SPVesselPerf:CD1Xng0aHF", "-O", "http://sourcemodel.onshore.pgs.com/_api/web/lists/GetByTitle('Forms')/items/getById(".$id.")");
+my @args =  ("curl", "-k", "--ntlm", "-u", "ONSHORE/F_HOU-SPVesselPerf:CD1Xng0aHF", "-O", "http://sourcemodel.onshore.pgs.com/_api/web/lists/GetByTitle('Forms')/items/getById(".$id.")"); #Password to Sharepoint hardcoded here
 system(@args) == 0
     or die "system @args failed: $?";
 $inputfile = "getById(".$id.")";
@@ -78,7 +78,7 @@ $htmlfilename = $data->{'content'}->{'m:properties'}->[0]->{'d:FileName'}->[0];
 $htmlfilename =~ s/ /\%20/g;
 $localfile = "temp".$id.".html";
 print("Downloading HTML file name: ",$htmlfilename,"\n");
-my @args =  ("curl", "-k", "--ntlm", "-u", "ONSHORE/F_HOU-SPVesselPerf:CD1Xng0aHF", "-o", $localfile, "http://sourcemodel.onshore.pgs.com/".$htmlfilename);
+my @args =  ("curl", "-k", "--ntlm", "-u", "ONSHORE/F_HOU-SPVesselPerf:CD1Xng0aHF", "-o", $localfile, "http://sourcemodel.onshore.pgs.com/".$htmlfilename); #Password to sharepoint hardcoded here
 system(@args) == 0
     or die "system @args failed: $?";
 sleep(2);
